@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="javas.js"></script>
+    <title>Quản lý thông tin khách hàng</title>
+    <style>
+        /* Reset mặc định */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #0066cc;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0 20px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="search"], 
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .search-section {
+            padding: 20px;
+        }
+
+        /* Flexbox để sắp xếp form trên cùng 1 hàng */
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Căn chỉnh kích thước của các form để phù hợp khi nằm cạnh nhau */
+        #addForm, 
+        #editForm, 
+        .search-section {
+            flex: 1;
+            min-width: 300px; /* Đảm bảo form không quá nhỏ */
+        }
+
+    </style>
+</head>
+<body onload="tableDefault()">
+
+    <h2>Quản lý thông tin khách hàng</h2>
+
+    <div class="form-container">
+        <!-- Form thêm thông tin -->
+        <form id="addForm" onsubmit="submitInfor(); return false;">
+            <p>Nhập họ và tên: </p>
+            <input id="name" type="text" required>
+
+            <p>Ngày tháng năm sinh: </p>
+            <input id="birthdate" type="date" required>
+
+            <p>Giới tính: </p>
+            <input type="radio" name="Gender" id="mr" required>
+            <label for="Nam">Nam</label>
+            <input type="radio" name="Gender" id="ms" required>
+            <label for="Nữ">Nữ</label>
+
+            <p>Số CCCD: </p>
+            <input type="number" id="numberInput" name="numberInput" required min="100000000000" max="999999999999">
+
+            <button type="submit">Thêm thông tin</button>
+        </form>
+
+        <!-- Phần tìm kiếm -->
+        <div class="search-section">
+            <p>Tìm kiếm thông tin khách hàng</p>
+            <input id="searchInput" type="search" placeholder="Nhập thông tin tìm kiếm..." oninput="searchCustomer()">
+            <select id="searchBy" onchange="searchCustomer()">
+                <option value="name">theo họ và tên</option>
+                <option value="numberInput">theo số CCCD</option>
+                <option value="birthdate">theo ngày tháng năm sinh</option>
+                <option value="gender">theo giới tính</option>
+            </select>
+            <button style="background-color:blue" type="reload" onclick="reload()"> ↺ Reload......</button>
+        </div>
+
+        <!-- Form chỉnh sửa -->
+        <form id="editForm">
+            <p>Chỉnh sửa thông tin</p>
+
+            <p>Chọn hàng cần chỉnh sửa: </p>
+            <p id="selectRow">row: </p>
+
+            <p>Nhập họ và tên: </p>
+            <input id="editName" type="text" required>
+
+            <p>Ngày tháng năm sinh: </p>
+            <input id="editBirthdate" type="date" required>
+
+            <p>Giới tính: </p>
+            <input type="radio" name="editGender" id="editMr" required>
+            <label for="Nam">Nam</label>
+            <input type="radio" name="editGender" id="editMs" required>
+            <label for="Nữ">Nữ</label>
+
+            <p>Số CCCD: </p>
+            <input type="number" id="editNumberInput" name="editNumberInput" required min="100000000000" max="999999999999">
+
+            <button type="button" onclick="editRowInfor()">Cập nhật</button>
+        </form>
+    </div>
+
+    
+
+    <h2>Hiển thị thông tin khách hàng</h2>
+    <p id="numberlist">Number list: </p>
+    <table id="customerTable">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Số CCCD</th>
+                <th>Họ và Tên</th>
+                <th>Ngày tháng năm sinh</th>
+                <th>Giới tính</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</body>
+</html>

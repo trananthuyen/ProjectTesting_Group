@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/login.css" />
+    <script src="/javaAccount.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="login-iframe" id="login-visibale">
+
+        <div class="body-login">
+            <div class="login">
+                <form>
+                    <h2>Log In</h2>
+                    <div class="box">
+                        <input id="Username" type="text" placeholder="Username">
+                    </div>
+                    <div class="box">
+                        <input id="password" type="password" placeholder="Password">
+                    </div>
+                    
+                    <div class="text-red"><p class="paragraph"></p></div>
+                    
+                </form>
+                <button class="btnLogin" onclick="login()">Login</button>
+                <div class="query">
+                        <p>Create an <button onclick="displaySignup()">Account</button></p>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-iframe" id="signup-visibale">
+
+        <div class="body-login">
+          
+            <div class="login">
+                <form >
+                    <h2>Sign up</h2>
+                    <div class="box">
+                        <input type="text" id="signupname" placeholder="Username">
+                    </div>
+                    <div class="box">
+                        <input  type="password" id="signuppassword" placeholder="Password">
+                    </div>
+                    
+                    <div class="text-red1"><p class="paragraph"></p></div>
+                    
+                </form>
+                <button class="btnLogin" onclick="signup()">Signup</button>
+                <div class="query">
+                        <p>Have an <button onclick="displaylogin()">Account</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
