@@ -17,6 +17,17 @@ function login() {
     const password = document.querySelector('#password').value;  // Lấy giá trị từ input
 
    
+    if(username.length == 0) {
+        const chooseError = document.querySelector('.text-red');
+        chooseError.innerHTML = '<div class="text-red"><p class="paragraph">account name should not empty .</p></div>';
+        return;
+    }
+
+    if(password.length == 0) {
+        const chooseError = document.querySelector('.text-red');
+        chooseError.innerHTML = '<div class="text-red"><p class="paragraph">password should not empty .</p></div>';
+        return;
+    }
    
     const user = account.find(acc => acc.username == username && acc.password == password);
 
@@ -40,6 +51,39 @@ function signup() {
 
    
     if (!user) {
+        
+        if(password.length == 0 && username.length == 0) {
+            const chooseError = document.querySelector('.text-red1');
+            chooseError.innerHTML = '<div class="text-red1"><p class="paragraph">account name and password should not empty .</p></div>';
+            return;
+        }
+
+        if(username.length == 0) {
+            const chooseError = document.querySelector('.text-red1');
+            chooseError.innerHTML = '<div class="text-red1"><p class="paragraph">account name should not empty .</p></div>';
+            return;
+        }
+
+        if(password.length == 0) {
+            const chooseError = document.querySelector('.text-red1');
+            chooseError.innerHTML = '<div class="text-red1"><p class="paragraph">password should not empty .</p></div>';
+            return;
+        }
+
+        
+
+        if(username.length < 8) {
+            const chooseError = document.querySelector('.text-red1');
+            chooseError.innerHTML = '<div class="text-red1"><p class="paragraph">account name should at least 8 letters .</p></div>';
+            return;
+        }
+
+        if(password.length < 8) {
+            const chooseError = document.querySelector('.text-red1');
+            chooseError.innerHTML = '<div class="text-red1"><p class="paragraph">password should at least 8 letters .</p></div>';
+            return;
+        }
+
         account.push(new accountData(username, password));
        
         displaylogin();

@@ -117,6 +117,14 @@
             min-width: 300px; /* Đảm bảo form không quá nhỏ */
         }
 
+        .form-container .paragraph {
+            color: red;
+        }
+
+        #editForm .paragraph {
+            color: red;
+        }
+
     </style>
 </head>
 <body onload="tableDefault()">
@@ -127,19 +135,21 @@
         <!-- Form thêm thông tin -->
         <form id="addForm" onsubmit="submitInfor(); return false;">
             <p>Nhập họ và tên: </p>
-            <input id="name" type="text" required>
+            <input id="name" type="text" >
 
-            <p>Ngày tháng năm sinh: </p>
-            <input id="birthdate" type="date" required>
+            <p>Ngày tháng năm sinh:(yyyy-mm-dd) </p>
+            <input id="birthdate" type="text" >
 
             <p>Giới tính: </p>
-            <input type="radio" name="Gender" id="mr" required>
+            <input type="radio" name="Gender" id="mr" >
             <label for="Nam">Nam</label>
-            <input type="radio" name="Gender" id="ms" required>
+            <input type="radio" name="Gender" id="ms" >
             <label for="Nữ">Nữ</label>
 
             <p>Số CCCD: </p>
-            <input type="number" id="numberInput" name="numberInput" required min="100000000000" max="999999999999">
+            <input type="text" id="numberInput" name="numberInput" >
+
+            <div class="text-red-addForm"><p class="paragraph"></p></div>
 
             <button type="submit">Thêm thông tin</button>
         </form>
@@ -165,19 +175,23 @@
             <p id="selectRow">row: </p>
 
             <p>Nhập họ và tên: </p>
-            <input id="editName" type="text" required>
+            <input id="editName" type="text" >
 
-            <p>Ngày tháng năm sinh: </p>
-            <input id="editBirthdate" type="date" required>
+            <p>Ngày tháng năm sinh:(yyyy-mm-dd) </p>
+            <input id="editBirthdate" type="text" >
 
             <p>Giới tính: </p>
-            <input type="radio" name="editGender" id="editMr" required>
+            <input type="radio" name="editGender" id="editMr" >
             <label for="Nam">Nam</label>
-            <input type="radio" name="editGender" id="editMs" required>
+            <input type="radio" name="editGender" id="editMs" >
             <label for="Nữ">Nữ</label>
+            <input type="radio" name="editGender" id="editOther" >
+            <label for="Other">Other</label>
 
             <p>Số CCCD: </p>
-            <input type="number" id="editNumberInput" name="editNumberInput" required min="100000000000" max="999999999999">
+            <input type="text" id="editNumberInput" name="editNumberInput"  >
+
+            <div class="text-red-editForm"><p class="paragraph"></p></div>
 
             <button type="button" onclick="editRowInfor()">Cập nhật</button>
         </form>
